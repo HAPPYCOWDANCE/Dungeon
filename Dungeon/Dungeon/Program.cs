@@ -7,71 +7,52 @@ namespace dungeon
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-
-            while (true)
+            Turn1 map = new Turn1();
+            int row = 0;
+            while (row < 5)
             {
-                Console.WriteLine("f to move forwards b to move backwards etc");
+                Console.WriteLine("k");
                 string input = Console.ReadLine();
 
-                if (player.Move(input))
+                if (input == null)
+                    return;
+                if (input.Length >= 5)
                 {
-                   //
+                    for(int column = 0; (column < 5); ++column)
+                    {
+                        if (input[column] == '\\')
+                            map.SetValue(column, row, 1);
+                        else if (input[column] == '/')
+                            map.SetValue(column, row, 2);
+                        else if (input[column] == '*')
+                            map.SetValue(column, row, 3);
+                    }
+
+                    ++row;
                 }
-                else;
+                else
                 {
-                    Console.WriteLine("invalid move");
+                    Console.WriteLine("Invalid input");
                 }
+                Console.WriteLine(map[0, 0]);
             }
         }
     }
-    class Player
+
+  
+    class Turn1
     {
-        public const int MapHeight = 5;
-        public const int MapWidth = 5;
-        public int X = 0;
-        public int Y = 0;
+        public int[,] map = new int[5, 5];
 
-        public bool Move(string input)
+        public int GetValue(int x, int y)
         {
-            switch(input)
-            {
-                case "f":
-                    if (this.Y < MapHeight)
-                    {
-                        this.Y += 1;
-                        return true;
-                    }
-                    else
-                        return false;
-                case "b":
-                    if (this.Y > 0)
-                    {
-                        this.Y -= 1;
-                        return true;
-                    }
-                    else
-                        return false;
-                case "l":
-                    if (this.X > 0)
-                    {
-                        this.X -= 1;
-                        return true;
-                    }
-                    else
-                        return false;
-                case "r":
-                    if (this.X < MapWidth)
-                    {
-                        this.X += 1;
-                        return true;
-                    }
-                    else
-                        return false;
-                default:
-                    return false;
-
-            }
+            return this.map[x, y];
         }
+
+        public void SetValue(int x, int y, int value)
+        {
+            this.map[x, y] = value;
+        }
+   
     }
 }
