@@ -7,11 +7,11 @@ namespace dungeon
     {
         static void Main(string[] args)
         {
-            Turn1 map = new Turn1();
+            Input map = new Input();
             int row = 0;
             while (row < 5)
             {
-                Console.WriteLine("k");
+                Console.WriteLine("-----------------");
                 string input = Console.ReadLine();
 
                 if (input == null)
@@ -27,20 +27,82 @@ namespace dungeon
                         else if (input[column] == '*')
                             map.SetValue(column, row, 3);
                     }
-
                     ++row;
                 }
                 else
                 {
                     Console.WriteLine("Invalid input");
                 }
-                Console.WriteLine(map[0, 0]);
+               
+            }
+
+            int e = 0;
+            int r = 0;
+            for (e = 0; e < 5; e++)
+            {
+                for (r = 0; r < 5; r++)
+                {
+                    if (map.GetValue(e, r) == 0)
+                    {
+                        Console.Write("[ ]");
+                    }
+                    else if (map.GetValue(e, r) == 1)
+                    {
+                        Console.Write("[\\]");
+                    }
+                    else if (map.GetValue(e, r) == 2)
+                    {
+                        Console.Write("[/]");
+                    }
+                    else
+                    {
+                        Console.Write("[*]");
+                    }
+                }
+                r = 0;
+                Console.WriteLine("");
+            }
+            e = 0;
+            r = 0;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                switch (input)
+                    {
+                        case ("a"):
+                            for (e = 0; r < 5||e < 5||e > 0||r > 0; e++)
+                            {
+                                if (map.GetValue(e,r) == 1)
+                                {
+                                    for (r = 0; r < 5 || e < 5 || e > 0 || r > 0; r--)
+                                    {
+                                        
+                                    }
+                                }
+                                if (map.GetValue(e, r) == 2)
+                                {
+                                    for (r = 0; r < 5 || e < 5 || e > 0 || r > 0; r++)
+                                    {
+                                        
+                                    }
+                                }
+                                if (map.GetValue(e, r) == 3)
+                                {
+                                    for (r = 0; r < 5 || e < 5 || e > 0 || r > 0; r++)
+                                    {
+                                    break;
+                                    }
+                                }
+                            }
+                            Console.WriteLine(e + " " + r);
+                            break;
+                    }
             }
         }
     }
 
   
-    class Turn1
+    class Input
     {
         public int[,] map = new int[5, 5];
 
